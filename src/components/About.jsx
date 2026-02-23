@@ -78,7 +78,7 @@ const About = () => {
                 <span className="highlight-icon"><HiMapPin /></span>
                 <div>
                   <strong>Venue</strong>
-                  <p>Vidyuth Campus</p>
+                  <p>Institute of Engineering & Technology, Lucknow</p>
                 </div>
               </div>
               <div className="highlight-item">
