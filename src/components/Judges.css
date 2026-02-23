@@ -1,0 +1,72 @@
+.judges {
+  background: transparent;
+}
+
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.criteria-card {
+  padding: 28px;
+}
+
+.criteria-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.criteria-icon {
+  font-size: 2rem;
+}
+
+.criteria-weight {
+  background: rgba(0, 245, 255, 0.08);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 8px;
+  padding: 6px 14px;
+}
+
+.weight-value {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+}
+
+.criteria-title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.criteria-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.criteria-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.criteria-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+}
+
+@media (max-width: 640px) {
+  .criteria-grid {
+    grid-template-columns: 1fr;
+  }
+}

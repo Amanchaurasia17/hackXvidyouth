@@ -1,0 +1,558 @@
+/* ════════════════════════════════════
+   FULL-PAGE SCROLL TIMELINE
+   ════════════════════════════════════ */
+
+.tl-fullpage {
+  position: relative;
+  background: var(--bg-primary);
+  z-index: 1;
+}
+
+/* ── Viewport overlay — JS toggles between before / pinned / after ── */
+.tl-viewport {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  background: var(--bg-primary);
+  z-index: 2;
+}
+
+/* Subtle cyberpunk ambient glow behind the viewport */
+.tl-viewport::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 245, 255, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  animation: tl-float 18s ease-in-out infinite;
+  z-index: 0;
+}
+
+.tl-viewport::after {
+  content: '';
+  position: absolute;
+  bottom: -200px;
+  left: -150px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  animation: tl-float 22s ease-in-out infinite reverse;
+  z-index: 0;
+}
+
+@keyframes tl-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(25px, -35px) scale(1.04); }
+  66% { transform: translate(-20px, 20px) scale(0.96); }
+}
+
+/* Before the section (sits at top of wrapper) */
+.tl-viewport--before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Pinned while scrolling through the section */
+.tl-viewport--pinned {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+/* After the section (sits at bottom of wrapper) */
+.tl-viewport--after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* ── Progress bar ── */
+.tl-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  z-index: 20;
+}
+
+.tl-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  transition: width 0.4s ease;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── Sidebars ── */
+.tl-sidebar {
+  display: flex;
+  flex-shrink: 0;
+  height: 100%;
+  z-index: 5;
+}
+
+.tl-sidebar-right {
+  margin-left: auto;
+}
+
+/* Strips — always rendered, visibility toggled via .visible class */
+.tl-sidebar-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 100%;
+  border-left: 1px solid rgba(0, 245, 255, 0.06);
+  overflow: hidden;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(180deg, transparent, rgba(0, 245, 255, 0.015), transparent);
+}
+
+.tl-sidebar-strip.visible {
+  width: 60px;
+}
+
+.tl-sidebar-strip:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tl-sidebar-date {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(100, 180, 255, 0.6);
+  letter-spacing: 3px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease 0.15s, color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.tl-sidebar-strip.visible .tl-sidebar-date {
+  opacity: 1;
+}
+
+.tl-sidebar-strip:hover .tl-sidebar-date {
+  color: rgba(100, 180, 255, 0.9);
+}
+
+.tl-strip-highlight .tl-sidebar-date {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 20px rgba(0, 245, 255, 0.4);
+}
+
+/* ── Center content area ── */
+.tl-center-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  min-width: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle grid overlay for cyberpunk feel */
+.tl-center-area::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Panels: all stacked absolutely, CSS transitions ── */
+.tl-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 80px;
+  overflow-y: auto;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: transform, opacity;
+}
+
+/* Active panel — fully visible, centered */
+.tl-panel-active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.tl-panel-active .tl-active-date {
+  text-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+.tl-panel-active .tl-active-title {
+  text-shadow: 0 0 40px rgba(0, 245, 255, 0.06);
+}
+
+/* Panel exited to the left (past) */
+.tl-panel-exit {
+  opacity: 0;
+  transform: translateX(-120px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Panel waiting on the right (future) */
+.tl-panel-next {
+  opacity: 0;
+  transform: translateX(150px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Panel content styles ── */
+.tl-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.08;
+}
+
+.tl-subtitle {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 28px;
+  line-height: 1.65;
+  max-width: 480px;
+}
+
+.tl-active-date {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.tl-active-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.82);
+  margin-top: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.tl-active-desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.38);
+  margin-top: 28px;
+  line-height: 1.65;
+  max-width: 550px;
+}
+
+/* ── Inline day schedule inside Hackathon Day panel ── */
+.tl-day-schedule {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  max-width: 100%;
+  width: 100%;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.tl-day-schedule::-webkit-scrollbar {
+  width: 4px;
+}
+
+.tl-day-schedule::-webkit-scrollbar-thumb {
+  background: rgba(0, 245, 255, 0.2);
+  border-radius: 4px;
+}
+
+.tl-sch-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(0, 245, 255, 0.03);
+  border: 1px solid rgba(0, 245, 255, 0.06);
+  transition: all 0.25s ease;
+}
+
+.tl-sch-item:hover {
+  background: rgba(0, 245, 255, 0.06);
+  border-color: rgba(0, 245, 255, 0.15);
+  transform: translateX(4px);
+}
+
+.tl-sch-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--neon-cyan);
+}
+
+.tl-sch-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.tl-sch-time {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.tl-sch-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ════════════════════════════════════
+   DAY-OF SCHEDULE (normal scroll)
+   ════════════════════════════════════ */
+
+.sch-section-wrap {
+  background: transparent;
+}
+
+.sch-section-wrap .container {
+  max-width: 750px;
+}
+
+.sch-section-label {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: rgba(0, 245, 255, 0.04);
+  border: 1px solid rgba(0, 245, 255, 0.1);
+  border-radius: 12px;
+}
+
+.sch-label-icon {
+  font-size: 1.4rem;
+}
+
+.sch-grid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sch-row {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  cursor: default;
+}
+
+.sch-time-col {
+  flex: 0 0 160px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.sch-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+  flex-shrink: 0;
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+}
+
+.sch-connector {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  bottom: -50%;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(0, 245, 255, 0.3), rgba(124, 58, 237, 0.2));
+  z-index: 1;
+}
+
+.sch-time {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+.sch-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.sch-content:hover {
+  border-color: rgba(0, 245, 255, 0.2);
+}
+
+.sch-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.sch-title {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.sch-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .tl-center-area {
+    padding: 0 36px;
+  }
+
+  .tl-panel {
+    padding: 0 36px;
+  }
+
+  .tl-sidebar-strip.visible {
+    width: 44px;
+  }
+
+  .tl-sidebar-date {
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+  }
+
+  .tl-active-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .tl-active-desc {
+    font-size: 0.95rem;
+  }
+
+  .tl-day-schedule {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .sch-time-col {
+    flex: 0 0 120px;
+  }
+
+  .sch-section-label {
+    font-size: 0.9rem;
+    padding: 12px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tl-center-area {
+    padding: 0 20px;
+  }
+
+  .tl-panel {
+    padding: 0 20px;
+  }
+
+  .tl-sidebar-strip.visible {
+    width: 34px;
+  }
+
+  .tl-sidebar-date {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+  }
+
+  .tl-heading {
+    font-size: 2.5rem;
+  }
+
+  .tl-day-schedule {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .tl-sch-item {
+    padding: 8px 10px;
+  }
+
+  .sch-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .sch-time-col {
+    flex: none;
+    padding-bottom: 8px;
+  }
+
+  .sch-connector {
+    display: none;
+  }
+
+  .sch-content {
+    margin-left: 24px;
+    margin-bottom: 16px;
+  }
+}
