@@ -10,7 +10,7 @@ const faqData = [
   },
   {
     q: 'Is there a registration fee?',
-    a: 'No! HACK X VID-YOUTH 2026 is completely free to participate in. We believe in making innovation accessible to everyone.',
+    a: 'Registration is free for all participants. However, the top 15 finalist teams will be required to pay a confirmation fee of ₹400 per team to confirm their participation in the final round.',
   },
   {
     q: 'Do I need a team to participate?',

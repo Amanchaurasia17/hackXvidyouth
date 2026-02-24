@@ -131,7 +131,7 @@ const Hero = () => {
           </div>
           <div className="stat-divider" />
           <div className="stat-item">
-            <span className="stat-value">₹50K+</span>
+            <span className="stat-value">₹20K+</span>
             <span className="stat-label">Prize Pool</span>
           </div>
           <div className="stat-divider" />

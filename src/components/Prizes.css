@@ -41,8 +41,8 @@
   padding: 36px 28px;
   position: relative;
   overflow: hidden;
-  min-width: 340px;
-  max-width: 400px;
+  min-width: 280px;
+  max-width: 380px;
   flex: 1;
 }
 
@@ -163,7 +163,8 @@
 
 @media (max-width: 900px) {
   .prizes-grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: center;
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
@@ -183,4 +184,13 @@
   .special-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Goodies label in prize card */
+.goodies-label {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }

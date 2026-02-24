@@ -3,7 +3,8 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import CountUp from 'react-countup'
 import { FaMedal, FaTrophy } from 'react-icons/fa'
-import { HiPaintBrush, HiLightBulb, HiStar, HiHeart } from 'react-icons/hi2'
+import { FaAward } from 'react-icons/fa6'
+import { HiGift } from 'react-icons/hi2'
 import './Prizes.css'
 
 const Prizes = () => {
@@ -16,7 +17,7 @@ const Prizes = () => {
       amount: '₹10,000',
       amountNum: 10000,
       color: '#FFD700',
-      perks: ['Trophy & Certificate', 'Swag Kit', 'Mentorship Access'],
+      perks: ['Certificate', 'Goodies + T-Shirt', 'Mentorship Access'],
       icon: <FaTrophy />,
       featured: true,
     },
@@ -26,17 +27,21 @@ const Prizes = () => {
       amount: '₹5,000',
       amountNum: 5000,
       color: '#C0C0C0',
-      perks: ['Trophy & Certificate', 'Swag Kit', 'Course Vouchers'],
+      perks: ['Certificate', 'Goodies + T-Shirt', 'Mentorship Access'],
       icon: <FaMedal />,
       featured: false,
     },
-  ]
-
-  const specialPrizes = [
-    { title: 'Best UI/UX', prize: '₹1,000', icon: <HiPaintBrush /> },
-    { title: 'Most Innovative', prize: '₹1,000', icon: <HiLightBulb /> },
-    { title: 'Best First-Time Hackers', prize: '₹1,000', icon: <HiStar /> },
-    { title: "People's Choice", prize: '₹1,000', icon: <HiHeart /> },
+    {
+      place: 'Top 15',
+      title: 'All Finalists',
+      amount: 'Goodies',
+      amountNum: null,
+      color: '#00F5FF',
+      perks: ['Certificate', 'Goodies + T-Shirt', 'Mentorship Access'],
+      icon: <FaAward />,
+      featured: false,
+      isGoodies: true,
+    },
   ]
 
   return (
@@ -49,7 +54,7 @@ const Prizes = () => {
         >
           <h2 className="section-title">Prize Pool</h2>
           <p className="section-subtitle">
-            Over ₹50,000 in prizes await the best teams. Plus exclusive perks, and more!
+            Over ₹20,000 in prizes await the best teams. Plus exclusive perks, and more!
           </p>
         </motion.div>
 
@@ -61,7 +66,7 @@ const Prizes = () => {
         >
           <span className="total-label">Total Prize Pool</span>
           <div className="total-amount">
-            ₹{inView && <CountUp end={50000} duration={2.5} separator="," />}+
+            ₹{inView && <CountUp end={20000} duration={2.5} separator="," />}+
           </div>
         </motion.div>
 
@@ -82,7 +87,9 @@ const Prizes = () => {
               </div>
               <h3 className="prize-title">{prize.title}</h3>
               <div className="prize-amount" style={{ color: prize.color }}>
-                {inView && <CountUp end={prize.amountNum} duration={2} prefix="₹" separator="," />}
+                {prize.isGoodies
+                  ? <span className="goodies-label">Goodies</span>
+                  : inView && <CountUp end={prize.amountNum} duration={2} prefix="₹" separator="," />}
               </div>
               <ul className="prize-perks">
                 {prize.perks.map(perk => (
@@ -98,26 +105,6 @@ const Prizes = () => {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <h3 className="special-title">Special Category Prizes</h3>
-          <div className="special-grid">
-            {specialPrizes.map((sp, i) => (
-              <motion.div
-                key={sp.title}
-                className="special-card glass-card"
-                whileHover={{ scale: 1.03 }}
-              >
-                <span className="special-icon">{sp.icon}</span>
-                <h4>{sp.title}</h4>
-                <span className="special-prize">{sp.prize}</span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   )

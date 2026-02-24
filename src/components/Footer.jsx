@@ -41,9 +41,8 @@ const Footer = () => {
           <div className="footer-links">
             <h4>Connect</h4>
             <a href="https://www.instagram.com/ees_iet/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://twitter.com/ees_iet" target="_blank" rel="noopener noreferrer">Twitter / X</a>
+            <a href="https://x.com/iet_lucknow" target="_blank" rel="noopener noreferrer">Twitter / X</a>
             <a href="https://www.linkedin.com/company/electrical-engineering-society-iet-lucknow/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            <a href="#">Discord</a>
           </div>
         </div>
 
