@@ -32,10 +32,10 @@ const Footer = () => {
 
           <div className="footer-links">
             <h4>Resources</h4>
-            <a href="https://devfolio.co" target="_blank" rel="noopener noreferrer">Register on Devfolio</a>
-            <a href="https://unstop.com" target="_blank" rel="noopener noreferrer">Register on Unstop</a>
+            {/* <a href="https://devfolio.co" target="_blank" rel="noopener noreferrer">Register on Devfolio</a> */}
+            <a href="https://unstop.com/p/hack-x-vid-youth-2026-hack-x-vid-youth-2026-institute-of-engineering-and-technology-iet-lucknow-1647453" target="_blank" rel="noopener noreferrer">Register on Unstop</a>
             <a href="#contact">Contact Us</a>
-            <a href="#">Code of Conduct</a>
+            <a href="https://drive.google.com/file/d/1Y8kZXfTT0vD5zbQ_I-lMvwutnHgc5gPS/view" target="_blank" rel="noopener noreferrer">Code of Conduct</a>
           </div>
 
           <div className="footer-links">

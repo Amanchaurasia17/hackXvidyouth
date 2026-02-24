@@ -101,7 +101,7 @@ const Hero = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <a
-            href="https://devfolio.co"
+            href="https://unstop.com/p/hack-x-vid-youth-2026-hack-x-vid-youth-2026-institute-of-engineering-and-technology-iet-lucknow-1647453"
             target="_blank"
             rel="noopener noreferrer"
             className="neon-btn neon-btn-filled hero-btn"
@@ -126,7 +126,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           <div className="stat-item">
-            <span className="stat-value">500+</span>
+            <span className="stat-value">250+</span>
             <span className="stat-label">Participants</span>
           </div>
           <div className="stat-divider" />

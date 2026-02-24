@@ -57,7 +57,7 @@ const Navbar = () => {
             </motion.a>
           ))}
           <a
-            href="https://devfolio.co"
+            href="https://unstop.com/p/hack-x-vid-youth-2026-hack-x-vid-youth-2026-institute-of-engineering-and-technology-iet-lucknow-1647453"
             target="_blank"
             rel="noopener noreferrer"
             className="neon-btn nav-register-btn"
@@ -97,7 +97,7 @@ const Navbar = () => {
               </a>
             ))}
             <a
-              href="https://devfolio.co"
+              href="https://unstop.com/p/hack-x-vid-youth-2026-hack-x-vid-youth-2026-institute-of-engineering-and-technology-iet-lucknow-1647453"
               target="_blank"
               rel="noopener noreferrer"
               className="neon-btn mobile-register-btn"
