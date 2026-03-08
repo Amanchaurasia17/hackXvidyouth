@@ -6,7 +6,7 @@ import './FAQ.css'
 const faqData = [
   {
     q: 'Who can participate in HACK X VID-YOUTH 2026?',
-    a: 'Any student currently enrolled in a college or university can participate. Whether you\'re a beginner or an experienced developer, all skill levels are welcome! You need to form a team of 4 members.',
+    a: 'Any student currently enrolled in a college or university can participate. Whether you\'re a beginner or an experienced developer, all skill levels are welcome! You need to form a team of 3-4 members.',
   },
   {
     q: 'Is there a registration fee?',
@@ -14,7 +14,7 @@ const faqData = [
   },
   {
     q: 'Do I need a team to participate?',
-    a: 'Yes, you need a team of 4 members. If you don\'t have a team, don\'t worry! We\'ll have a team formation session before the event where you can find teammates.',
+    a: 'Yes, you need a team of 3-4 members. If you don\'t have a team, don\'t worry! We\'ll have a team formation session before the event where you can find teammates.',
   },
   {
     q: 'What should I bring to the hackathon?',
@@ -34,7 +34,7 @@ const faqData = [
   },
   {
     q: 'What platforms will be used for registration?',
-    a: 'Registration will be available through Devfolio and Unstop. Links will be shared on our social media channels and this website.',
+    a: 'Registration will be available through Unstop. Links will be shared on our social media channels and this website.',
   },
 ]
 
