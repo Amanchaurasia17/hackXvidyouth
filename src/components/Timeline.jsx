@@ -7,11 +7,11 @@ import './Timeline.css'
 
 /* ── Pre-event milestones ── */
 const milestones = [
-  { date: '24 FEB', title: 'Registration Starts', description: 'Sign up on Unstop and start forming your dream team of 4 members.' },
-  { date: '8 MAR', title: 'Registration Ends', description: 'Final deadline for all registrations. Make sure your team is locked in!' },
-  { date: '9 MAR', title: 'Shortlisted Teams Announced', description: 'Selected teams announced! Check your email and our social channels.' },
-  { date: '10 MAR', title: 'Pre-Hackathon Briefing', description: 'Final instructions, rules recap, and Q&A session for selected teams.' },
-  { date: '12 MAR', title: 'Hackathon Day!', description: '12 hours of non-stop hacking, building, and innovating. Game on!' },
+  { date: '24 FEB', title: 'Registration Starts', description: 'Sign up on Unstop and start forming your dream team of 3-4 members.' },
+  { date: '10 MAR', title: 'Registration Ends', description: 'Final deadline for all registrations. Make sure your team is locked in!' },
+  { date: '13 MAR', title: 'Shortlisted Teams Announced', description: 'Selected teams announced! Check your email and our social channels.' },
+  { date: '15 MAR', title: 'Pre-Hackathon Briefing', description: 'Final instructions, rules recap, and Q&A session for selected teams.' },
+  { date: '17 MAR', title: 'Hackathon Day!', description: '12 hours of non-stop hacking, building, and innovating. Game on!' },
 ]
 
 /* ── Day-of schedule ── */
