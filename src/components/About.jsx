@@ -71,7 +71,7 @@ const About = () => {
                 <span className="highlight-icon"><HiCalendarDays /></span>
                 <div>
                   <strong>Date</strong>
-                  <p>March 12, 2026</p>
+                  <p>March 17, 2026</p>
                 </div>
               </div>
               <div className="highlight-item">
