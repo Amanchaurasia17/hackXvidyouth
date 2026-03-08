@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import './Hero.css'
 
 const Hero = () => {
-  const hackathonDate = new Date('2026-03-12T09:00:00')
+  const hackathonDate = new Date('2026-03-17T09:00:00')
 
   const calculateTimeLeft = () => {
     const now = new Date()
@@ -48,7 +48,7 @@ const Hero = () => {
           transition={{ duration: 0.5 }}
         >
           <span className="badge-dot" />
-          12-HOUR HACKATHON • MARCH 12, 2026
+          12-HOUR HACKATHON • MARCH 17, 2026
         </motion.div>
 
         <motion.h1
@@ -126,7 +126,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 1.0 }}
         >
           <div className="stat-item">
-            <span className="stat-value">250+</span>
+            <span className="stat-value">550+</span>
             <span className="stat-label">Participants</span>
           </div>
           <div className="stat-divider" />
